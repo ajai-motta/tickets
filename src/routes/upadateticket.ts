@@ -26,11 +26,12 @@ router.put(
   requireAuth,
   validateRequest,
   async (req: Request, res: Response) => {
-    const ticket = await Ticket.findById(req.params.id);
+    
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       console.log("not found triggred in verfication of mongoose id");
       throw new NotFoundError();
     }
+    const ticket = await Ticket.findById(req.params.id);
     if (!ticket) {
       console.log("not found in ticket update with :id");
       throw new NotFoundError();
@@ -49,6 +50,7 @@ router.put(
       title: ticket.title,
       price: ticket.price,
       userId: ticket.userId,
+      version: ticket.version
     });
     res.send(ticket);
   },
