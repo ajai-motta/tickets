@@ -6,6 +6,7 @@ import {
   NotFoundError,
   validateRequest,
   requireAuth,
+  BadRequestError,
 } from "@ajaisgtickets/common";
 import { Ticket } from "../models/users";
 import { TicketUpdatedPublisher } from "../events/publisher/ticket-updated-publisher";
@@ -35,6 +36,9 @@ router.put(
     if (!ticket) {
       console.log("not found in ticket update with :id");
       throw new NotFoundError();
+    }
+    if (ticket.userId){
+      throw new BadRequestError('order already placed')
     }
     if (ticket.userId !== req.currentUser!.id) {
       throw new NotAuthorizedError("ticket owmer mis-match");
