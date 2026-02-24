@@ -37,7 +37,8 @@ router.put(
       console.log("not found in ticket update with :id");
       throw new NotFoundError();
     }
-    if (ticket.userId){
+    if (ticket.orderId){
+      console.log(ticket.userId)
       throw new BadRequestError('order already placed')
     }
     if (ticket.userId !== req.currentUser!.id) {
