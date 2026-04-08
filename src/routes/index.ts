@@ -4,7 +4,7 @@ import { Ticket } from '../models/users'
 
 const router=express.Router()
 router.get('/api/tickets',async (req:Request,res:Response)=>{
-const tickets=await Ticket.find({})// {set filterinside if you need one} returns all records
+const tickets=await Ticket.find({orderId: undefined})// {set filterinside if you need one} returns all records
 console.log(tickets,"tickets")
 res.send(tickets)
 })
